@@ -1,21 +1,33 @@
-# वर्कफ़्लो का नाम
-name: My First GitHub Action
+name: Azure Terraform Deployment
 
-# यह वर्कफ़्लो कब चलेगा (Event Trigger)
 on:
   push:
-    branches: [ "main" ] # जब भी main ब्रांच पर कोड पुश होगा
-  workflow_dispatch: # 
-# क्या काम करना है (Jobs)
+    branches: [ "main", "feature_new-rg" ]
+  workflow_dispatch: 
+
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest # यह कोड Ubuntu सर्वर पर चलेगा
+  terraform:
+    name: 'Terraform Plan'
+    runs-on: ubuntu-latest
 
     steps:
-    # स्टेप 1: आपके कोड को रनर सर्वर पर डाउनलोड करना
-    - name: Checkout Repository Code
+    - name: Checkout Code
       uses: actions/checkout@v4
 
-    # स्टेप 2: टर्मिनल पर एक सिंपल मैसेज प्रिंट करना
-    - name: Run a Welcome Script
-      run: echo "Hello World! GitHub Actions successfully chal raha hai."
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        auth-type: 'USER_PASSWORD' # यूज़रनेम/पासवर्ड लॉगिन फ़ोर्स करने के लिए
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.7.0"
+        terraform_wrapper: false 
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
