@@ -4,7 +4,7 @@ name: My First GitHub Action
 # यह वर्कफ़्लो कब चलेगा (Event Trigger)
 on:
   push:
-    branches: [ "main" ] # जब भी main ब्रांच पर कोड पुश होगा
+    branches: [ "feature_new-rg" ] # जब भी main ब्रांच पर कोड पुश होगा
 
 # क्या काम करना है (Jobs)
 jobs:
