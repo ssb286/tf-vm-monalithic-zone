@@ -34,18 +34,18 @@ module "nsg" {
 
 module "nic" {
   depends_on = [module.subnet]
-  source = "../child/nic"
-  nic=var.nic
+  source     = "../child/nic"
+  nic        = var.nic
 }
 
 module "vms" {
-  depends_on = [ module.subnet,module.nsg,module.nic]
-  source = "../child/vm"
-  vms=var.vms
+  depends_on = [module.subnet, module.nsg, module.nic]
+  source     = "../child/vm"
+  vms        = var.vms
 }
 module "bastion" {
-  depends_on = [ module.subnet,module.pip ]
-  source = "../child/bastion"
-  bastion = var.bastion
+  depends_on = [module.subnet, module.pip]
+  source     = "../child/bastion"
+  bastion    = var.bastion
 }
 

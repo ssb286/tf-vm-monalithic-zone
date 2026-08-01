@@ -1,0 +1,21 @@
+# वर्कफ़्लो का नाम
+name: My First GitHub Action
+
+# यह वर्कफ़्लो कब चलेगा (Event Trigger)
+on:
+  push:
+    branches: [ "feature_new-rg" ] # जब भी main ब्रांच पर कोड पुश होगा
+  workflow_dispatch: # 
+# क्या काम करना है (Jobs)
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # यह कोड Ubuntu सर्वर पर चलेगा
+
+    steps:
+    # स्टेप 1: आपके कोड को रनर सर्वर पर डाउनलोड करना
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    # स्टेप 2: टर्मिनल पर एक सिंपल मैसेज प्रिंट करना
+    - name: Run a Welcome Script
+      run: echo "Hello World! GitHub Actions successfully chal raha hai."
