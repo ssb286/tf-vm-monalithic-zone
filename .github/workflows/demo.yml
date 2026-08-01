@@ -5,7 +5,7 @@ name: My First GitHub Action
 on:
   push:
     branches: [ "feature_new-rg" ] # जब भी main ब्रांच पर कोड पुश होगा
-
+  workflow_dispatch: # 
 # क्या काम करना है (Jobs)
 jobs:
   build-and-test:
